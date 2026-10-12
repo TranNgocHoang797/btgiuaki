@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartShelf - Quản lý kệ hàng</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ===== PHẦN ĐẦU TRANG (Header) ===== -->
+    <header class="main-header">
+        <div class="logo">
+            <h1>📦 SmartShelf</h1>
+        </div>
+
+        <!-- Thanh điều hướng chính -->
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#overview" class="active">Tổng quan</a></li>
+                <li><a href="#shelf-management">Danh sách bổ sung</a></li>
+                <li><a href="#">Bản đồ cửa hàng</a></li>
+            </ul>
+        </nav>
+
+        <div class="user-profile">
+            <img src="https://ui-avatars.com/api/?name=NV&background=0D8ABC&color=fff" alt="Avatar nhân viên">
+            <span>Nhân viên: Trần A</span>
+        </div>
+    </header>
+
+    <!-- ===== PHẦN NỘI DUNG CHÍNH (Main) ===== -->
+    <main class="dashboard">
+
+        <!-- 1. Ba ô thống kê nhanh -->
+        <section id="overview" class="overview-widgets">
+            <article class="widget">
+                <h3>Tổng số kệ</h3>
+                <p class="number" id="total-shelves">0</p>
+            </article>
+            <article class="widget warning">
+                <h3>Sắp hết hàng</h3>
+                <p class="number" id="low-stock">0</p>
+            </article>
+            <article class="widget danger">
+                <h3>Kệ trống (Cần gấp)</h3>
+                <p class="number" id="empty-shelves">0</p>
+            </article>
+        </section>
+
+        <!-- 2. Khu vực quản lý kệ hàng -->
+        <section id="shelf-management" class="shelf-management">
+            <header class="section-header">
+                <h2>Trạng thái kệ hàng theo khu vực</h2>
+
+                <!-- Form gồm ô tìm kiếm và ô lọc trạng thái -->
+                <form id="filter-form" class="controls">
+                    <div class="input-group">
+                        <label for="search">Tìm sản phẩm:</label>
+                        <input type="text" id="search" placeholder="Nhập tên sản phẩm...">
+                    </div>
+                    <div class="input-group">
+                        <label for="status-filter">Lọc trạng thái:</label>
+                        <select id="status-filter">
+                            <option value="all">Tất cả</option>
+                            <option value="full">Đầy</option>
+                            <option value="low">Sắp hết</option>
+                            <option value="empty">Trống</option>
+                        </select>
+                    </div>
+                </form>
+            </header>
+
+            <!-- Nơi JavaScript vẽ các thẻ kệ hàng -->
+            <div id="shelf-grid" class="shelf-grid"></div>
+
+            <!-- Thông báo khi không tìm thấy kết quả -->
+            <p id="empty-message" class="empty-message hidden">Không tìm thấy kệ hàng phù hợp.</p>
+        </section>
+    </main>
+
+    <!-- ===== PHẦN CHÂN TRANG (Footer) ===== -->
+    <footer class="main-footer">
+        <p>&copy; 2026 SmartShelf - Giải pháp RetailTech hàng đầu.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

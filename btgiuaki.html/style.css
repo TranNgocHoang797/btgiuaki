@@ -1,0 +1,294 @@
+/* ============================================================
+   SmartShelf - style.css
+   Các phần chính:
+   1. Biến màu + reset chung
+   2. Header & Nav
+   3. Layout chính + ô thống kê
+   4. Form tìm kiếm / lọc
+   5. Lưới và thẻ kệ hàng
+   6. Nút + thông báo
+   7. Footer
+   8. Responsive (Media Query)
+   ============================================================ */
+
+/* ---------- 1. BIẾN MÀU + RESET CHUNG ---------- */
+:root {
+    --primary-color: #2563eb;   /* màu chủ đạo (xanh dương) */
+    --bg-color: #f3f4f6;        /* màu nền của trang */
+    --text-color: #1f2937;      /* màu chữ chính */
+    --card-bg: #ffffff;         /* màu nền các thẻ */
+    --success: #10b981;         /* xanh lá: trạng thái đầy hàng */
+    --warning: #f59e0b;         /* vàng cam: sắp hết hàng */
+    --danger: #ef4444;          /* đỏ: trống hàng */
+    --border: #e5e7eb;          /* màu viền */
+}
+
+/* Reset: xóa margin/padding mặc định của trình duyệt, đặt font chung */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* Cuộn mượt khi bấm vào link điều hướng */
+html {
+    scroll-behavior: smooth;
+}
+
+/* ---------- 2. HEADER & NAV ---------- */
+.main-header {
+    background-color: var(--card-bg);
+    padding: 1rem 2rem;
+    display: flex;                       /* dàn hàng ngang */
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.main-header h1 {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+.main-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.main-nav a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: color 0.3s;              /* hiệu ứng đổi màu mượt */
+}
+
+/* Hiệu ứng hover: đổi màu chữ khi rê chuột */
+.main-nav a:hover,
+.main-nav a.active {
+    color: var(--primary-color);
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+}
+
+.user-profile img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;                  /* bo tròn ảnh đại diện */
+}
+
+/* ---------- 3. LAYOUT CHÍNH + Ô THỐNG KÊ ---------- */
+.dashboard {
+    max-width: 1200px;
+    margin: 2rem auto;                   /* căn giữa trang */
+    padding: 0 1rem;
+}
+
+/* Dùng Grid để 3 ô thống kê tự chia cột theo độ rộng màn hình */
+.overview-widgets {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.widget {
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-top: 4px solid var(--primary-color);  /* viền trên tạo điểm nhấn */
+}
+
+/* Đổi màu viền trên theo mức độ ưu tiên của từng ô */
+.widget.warning { border-top-color: var(--warning); }
+.widget.danger { border-top-color: var(--danger); }
+
+.widget h3 {
+    font-size: 1rem;
+    color: #6b7280;
+}
+
+.widget .number {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-top: 0.5rem;
+}
+
+/* ---------- 4. FORM TÌM KIẾM / LỌC ---------- */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.controls {
+    display: flex;
+    gap: 1rem;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+input,
+select {
+    padding: 0.5rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    outline: none;
+}
+
+/* Đổi màu viền ô nhập khi đang gõ (focus) */
+input:focus,
+select:focus {
+    border-color: var(--primary-color);
+}
+
+/* ---------- 5. LƯỚI VÀ THẺ KỆ HÀNG ---------- */
+/* Grid tự động chia cột, mỗi cột tối thiểu 300px */
+.shelf-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.shelf-card {
+    background: var(--card-bg);
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border-left: 4px solid var(--border);   /* viền trái đổi màu theo trạng thái */
+    transition: transform 0.2s;
+}
+
+/* Hiệu ứng hover: thẻ nhấc lên nhẹ khi rê chuột */
+.shelf-card:hover {
+    transform: translateY(-3px);
+}
+
+/* Màu viền trái theo trạng thái của kệ */
+.shelf-card.status-full { border-left-color: var(--success); }
+.shelf-card.status-low { border-left-color: var(--warning); }
+.shelf-card.status-empty { border-left-color: var(--danger); }
+
+.shelf-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+/* Nhãn trạng thái (badge) */
+.badge {
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: white;
+}
+
+.badge.full { background-color: var(--success); }
+.badge.low { background-color: var(--warning); }
+.badge.empty { background-color: var(--danger); }
+
+.shelf-details p {
+    margin-bottom: 0.5rem;
+}
+
+/* ---------- 6. NÚT + THÔNG BÁO ---------- */
+.action-btn {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 1rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Nút đổi màu đậm hơn khi rê chuột */
+.action-btn:hover {
+    background-color: #1d4ed8;
+}
+
+/* Nút sau khi đã gửi yêu cầu: khóa lại và hóa xanh lá */
+.action-btn:disabled,
+.action-btn.requested {
+    background-color: var(--success);
+    cursor: default;
+}
+
+/* Thông báo khi không tìm thấy kết quả */
+.empty-message {
+    text-align: center;
+    padding: 2rem;
+    margin-top: 1rem;
+    color: #6b7280;
+    background: var(--card-bg);
+    border-radius: 8px;
+}
+
+/* Lớp ẩn phần tử (được JavaScript bật/tắt) */
+.hidden {
+    display: none;
+}
+
+/* ---------- 7. FOOTER ---------- */
+.main-footer {
+    text-align: center;
+    padding: 2rem;
+    color: #6b7280;
+    margin-top: 2rem;
+}
+
+/* ---------- 8. RESPONSIVE (Media Query) ---------- */
+/* Khi màn hình ≤ 768px (điện thoại/tablet nhỏ): dồn các phần về 1 cột */
+@media (max-width: 768px) {
+    .main-header {
+        flex-direction: column;      /* header xếp dọc */
+        gap: 1rem;
+    }
+
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .controls {
+        width: 100%;
+        flex-direction: column;      /* ô tìm kiếm và ô lọc xếp dọc */
+    }
+
+    .input-group {
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    input,
+    select {
+        width: 100%;                 /* ô nhập chiếm hết chiều rộng */
+    }
+}
